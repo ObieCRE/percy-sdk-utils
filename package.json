@@ -2,11 +2,7 @@
   "name": "@percy/sdk-utils",
   "version": "1.28.1",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/percy/cli",
-    "directory": "packages/sdk-utils"
-  },
+  "repository": "https://github.com/ObieCRE/percy-sdk-utils",
   "publishConfig": {
     "access": "public",
     "tag": "latest"

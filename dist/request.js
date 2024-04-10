@@ -43,6 +43,9 @@ async function request(path, options = {}) {
   return response;
 }
 request.post = function post(url, json) {
+  cylog('in utils request 1');
+  console.log('in utils request 2')
+  console.log(JSON.stringify(json))
   return request(url, {
     method: 'POST',
     body: JSON.stringify(json),
