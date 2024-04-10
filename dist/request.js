@@ -12,7 +12,7 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 function cylog(message, meta) {
   Cypress.log({
     name: 'percySnapshot',
-    displayName: 'percy sdk utils',
+    displayName: 'percysdkutils',
     consoleProps: () => meta,
     message
   });
@@ -52,6 +52,8 @@ request.post = function post(url, json) {
 
 // environment specific implementation
 if (process.env.__PERCY_BROWSERIFIED__) {
+  cylog('hello 1');
+
   // use window.fetch in browsers
   const winFetch = window.fetch;
   request.fetch = async function fetch(url, options) {
@@ -64,6 +66,7 @@ if (process.env.__PERCY_BROWSERIFIED__) {
     };
   };
 } else {
+  cylog('hello 2');
   // use http.request in node
   request.fetch = async function fetch(url, options) {
     let {

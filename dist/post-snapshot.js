@@ -10,7 +10,20 @@ var _request = _interopRequireDefault(require("./request.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 // Post snapshot data to the CLI snapshot endpoint. If the endpoint responds with a build error,
 // indicate that Percy has been disabled.
+
+function cylog(message, meta) {
+  Cypress.log({
+    name: 'percySnapshot',
+    displayName: 'percysdkutils4',
+    consoleProps: () => meta,
+    message
+  });
+}
+
 async function postSnapshot(options, params) {
+  console.log('hello 3')
+  cylog('hello 3');
+
   let query = params ? `?${new URLSearchParams(params)}` : '';
   return await _request.default.post(`/percy/snapshot${query}`, options).catch(err => {
     var _err$response, _err$response$body, _err$response$body$bu;
