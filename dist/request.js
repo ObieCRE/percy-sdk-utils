@@ -9,11 +9,22 @@ var _percyInfo = _interopRequireDefault(require("./percy-info.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function cylog(message, meta) {
+  Cypress.log({
+    name: 'percySnapshot',
+    displayName: 'percy sdk utils',
+    consoleProps: () => meta,
+    message
+  });
+}
 // Helper to send a request to the local CLI API
 async function request(path, options = {}) {
   let url = path.startsWith('http') ? path : `${_percyInfo.default.address}${path}`;
   let response = await request.fetch(url, options);
 
+  cylog(response);
+  cylog(JSON.stringify(response, null, 2));
+  cylog(JSON.stringify(response.body));
   // maybe parse response body as json
   if (typeof response.body === 'string' && response.headers['content-type'] === 'application/json') {
     try {
